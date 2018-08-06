@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="cdmsdw_oledb"
+  DTS:DTSID="{83956F9E-5030-4E17-8AF6-0400CEC3DF84}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=cdmsdwdev.database.windows.net;User ID=cdmsdwdevadmin;Initial Catalog=cdmsdwreportingdev;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAV4rxtHirTUeU5gOwrwIdrgAAAAACAAAAAAADZgAAwAAAABAAAAD5R2rDuQghKdPrdut+NCpMAAAAAASAAACgAAAAEAAAAE58i2hRIgG4noA8gVjYko2AAAAAkFtRZUgdQOirZ7rb/+VcftJ1kyX8k9O9LRN6gUmcBKg7KM6hVEw64ZKYzSF8JNDeUO8J52BvzKwwK0BIMt+5dwhSe5CigVq+eRmKxOa8YAS31Lr6OIhiRj/m4GxaZi9lSUSarjeN4cCRUE7wP5Ka1dcqFtnJuFwl+6GFptT0zVQUAAAAifuK5KavTLcnwQcD3ogK4zMJnrs=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
