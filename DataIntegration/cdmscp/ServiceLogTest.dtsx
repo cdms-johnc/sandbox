@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ServiceLogTest"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{91D9BB86-8F80-472C-8F0F-5009A3DF884B}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{9891AE45-B935-4371-9583-249594163292}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -20,12 +20,12 @@
       DTS:CreationName=""
       DTS:DTSID="{ECCE1C78-E6DC-45DC-915D-2355C545E210}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;select distinct EmpId, rtrim(Name) as Name, YtdEarn, Zip, convert(bigint, tstamp) as LastTimestamp from Employee where tstamp &gt; &quot; +  (DT_STR,20,1252) @[User::LastTimestamp]"
+      DTS:Expression="&quot;select distinct EmpId, rtrim(Name) as Name, convert(bigint, tstamp) as LastTimestamp from Employee where tstamp &gt; &quot; +  (DT_STR,20,1252) @[User::LastTimestamp]"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="EmployeeSelectStatement">
       <DTS:VariableValue
-        DTS:DataType="8">select distinct EmpId, rtrim(Name) as Name, YtdEarn, Zip, convert(bigint, tstamp) as LastTimestamp from Employee where tstamp &gt; 0</DTS:VariableValue>
+        DTS:DataType="8">select distinct EmpId, rtrim(Name) as Name, convert(bigint, tstamp) as LastTimestamp from Employee where tstamp &gt; 0</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -63,13 +63,12 @@
           version="1">
           <components>
             <component
-              refId="Package\Data Flow Task\DW Employee"
+              refId="Package\Data Flow Task\DW Employee Stage"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="DW Employee"
+              name="DW Employee Stage"
               usesDispositions="true"
-              validateExternalMetadata="False"
               version="4">
               <properties>
                 <property
@@ -79,7 +78,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[dbo].[Employee]</property>
+                  name="OpenRowset">[dbo].[Stage_Employee]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -121,7 +120,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\DW Employee.Connections[OleDbConnection]"
+                  refId="Package\Data Flow Task\DW Employee Stage.Connections[OleDbConnection]"
                   connectionManagerID="{83956F9E-5030-4E17-8AF6-0400CEC3DF84}:external"
                   connectionManagerRefId="Project.ConnectionManagers[cdmsdw_oledb]"
                   description="The OLE DB runtime connection used to access the database."
@@ -129,75 +128,51 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input]"
+                  refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].Columns[EmpId]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].Columns[EmpId]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="10"
                       cachedName="EmpId"
-                      externalMetadataColumnId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[EmpId]"
+                      externalMetadataColumnId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].ExternalColumns[EmpId]"
                       lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[EmpId]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].Columns[Name]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].Columns[Name]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="60"
                       cachedName="Name"
-                      externalMetadataColumnId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      externalMetadataColumnId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
                       lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[Name]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].Columns[YtdEarn]"
-                      cachedDataType="r8"
-                      cachedName="YtdEarn"
-                      externalMetadataColumnId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[YtdEarn]"
-                      lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[YtdEarn]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].Columns[Zip]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="10"
-                      cachedName="Zip"
-                      externalMetadataColumnId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[Zip]"
-                      lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[Zip]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].Columns[LastTimestamp]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].Columns[LastTimestamp]"
                       cachedDataType="i8"
                       cachedName="LastTimestamp"
-                      externalMetadataColumnId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[LastTimestamp]"
+                      externalMetadataColumnId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].ExternalColumns[LastTimestamp]"
                       lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[LastTimestamp]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[EmpId]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].ExternalColumns[EmpId]"
                       codePage="1252"
                       dataType="str"
                       length="10"
                       name="EmpId" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
                       codePage="1252"
                       dataType="str"
                       length="60"
                       name="Name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[YtdEarn]"
-                      dataType="r8"
-                      name="YtdEarn" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[Zip]"
-                      codePage="1252"
-                      dataType="str"
-                      length="10"
-                      name="Zip" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input].ExternalColumns[LastTimestamp]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input].ExternalColumns[LastTimestamp]"
                       dataType="i8"
                       name="LastTimestamp" />
                   </externalMetadataColumns>
@@ -205,22 +180,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\DW Employee.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Data Flow Task\DW Employee Stage.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\DW Employee.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\DW Employee.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Data Flow Task\DW Employee Stage.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\DW Employee.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Data Flow Task\DW Employee Stage.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\DW Employee.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Data Flow Task\DW Employee Stage.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -313,26 +288,6 @@
                       name="Name"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[YtdEarn]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].ExternalColumns[YtdEarn]"
-                      lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[YtdEarn]"
-                      name="YtdEarn"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[Zip]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].ExternalColumns[Zip]"
-                      length="10"
-                      lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[Zip]"
-                      name="Zip"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].Columns[LastTimestamp]"
                       dataType="i8"
                       errorOrTruncationOperation="Conversion"
@@ -356,16 +311,6 @@
                       dataType="str"
                       length="60"
                       name="Name" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].ExternalColumns[YtdEarn]"
-                      dataType="r8"
-                      name="YtdEarn" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].ExternalColumns[Zip]"
-                      codePage="1252"
-                      dataType="str"
-                      length="10"
-                      name="Zip" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output].ExternalColumns[LastTimestamp]"
                       dataType="i8"
@@ -392,18 +337,6 @@
                       lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[Name]"
                       name="Name" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[YtdEarn]"
-                      dataType="r8"
-                      lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[YtdEarn]"
-                      name="YtdEarn" />
-                    <outputColumn
-                      refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[Zip]"
-                      codePage="1252"
-                      dataType="str"
-                      length="10"
-                      lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[Zip]"
-                      name="Zip" />
-                    <outputColumn
                       refId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[LastTimestamp]"
                       dataType="i8"
                       lineageId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Error Output].Columns[LastTimestamp]"
@@ -429,7 +362,7 @@
           <paths>
             <path
               refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
-              endId="Package\Data Flow Task\DW Employee.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\DW Employee Stage.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
               startId="Package\Data Flow Task\Solomon Employee.Outputs[OLE DB Source Output]" />
           </paths>
@@ -511,7 +444,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{83956F9E-5030-4E17-8AF6-0400CEC3DF84}"
-          SQLTask:SqlStatementSource="truncate table Employee;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="truncate table Stage_Employee" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -594,17 +527,63 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="150.4,41.6"
+          Size="150,42"
           Id="Package\Data Flow Task"
           TopLeft="17.7142860159582,125.411766464735" />
         <NodeLayout
-          Size="192.8,41.6"
+          Size="170,42"
+          Id="Package\Get LastTimestamp"
+          TopLeft="303.428576595929,52.0000007292804" />
+        <NodeLayout
+          Size="212,42"
+          Id="Package\Get Updated LastTimestamp"
+          TopLeft="303.285720523523,178.63529662294" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Post Processing"
+          TopLeft="339.000004632132,390.447062066682" />
+        <NodeLayout
+          Size="193,42"
           Id="Package\Truncate Staging Tables"
           TopLeft="5.5,5.5" />
         <NodeLayout
-          Size="169.6,41.6"
-          Id="Package\Get LastTimestamp"
-          TopLeft="303.428576595929,52.0000007292804" />
+          Size="186,42"
+          Id="Package\Update LastTimestamp"
+          TopLeft="330.142865268552,279.211768215008" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="384.628576595929,93.6000007292804">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-291.714290579971,31.8117657354547"
+              Start="0,0"
+              End="-291.714290579971,24.3117657354547">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.9058828677273" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.9058828677273"
+                    Point2="0,15.9058828677273"
+                    Point3="-4,15.9058828677273" />
+                  <mssgle:LineSegment
+                    End="-287.714290579971,15.9058828677273" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-287.714290579971,15.9058828677273"
+                    Point2="-291.714290579971,15.9058828677273"
+                    Point3="-291.714290579971,19.9058828677274" />
+                  <mssgle:LineSegment
+                    End="-291.714290579971,24.3117657354547" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="198.3,26.3">
@@ -640,69 +619,31 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="384.628576595929,93.6000007292804">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-291.714290579971,31.8117657354547"
-              Start="0,0"
-              End="-291.714290579971,24.3117657354547">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,11.9058828677273" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,11.9058828677273"
-                    Point2="0,15.9058828677273"
-                    Point3="-4,15.9058828677273" />
-                  <mssgle:LineSegment
-                    End="-287.714290579971,15.9058828677273" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-287.714290579971,15.9058828677273"
-                    Point2="-291.714290579971,15.9058828677273"
-                    Point3="-291.714290579971,19.9058828677274" />
-                  <mssgle:LineSegment
-                    End="-291.714290579971,24.3117657354547" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="212,41.6"
-          Id="Package\Get Updated LastTimestamp"
-          TopLeft="366.285720523523,178.63529662294" />
-        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="168.114286015958,146.211766464735">
+          TopLeft="167.714286015958,146.411766464735">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="198.171434507565,53.2235301582045"
+              EndConnector="135.571434507565,53.223530158205"
               Start="0,0"
-              End="190.671434507565,53.2235301582045">
+              End="128.071434507565,53.223530158205">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="95.0857172537823,0" />
+                    End="63.7857172537824,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="95.0857172537823,0"
-                    Point2="99.0857172537823,0"
-                    Point3="99.0857172537823,4" />
+                    Point1="63.7857172537824,0"
+                    Point2="67.7857172537824,0"
+                    Point3="67.7857172537824,4" />
                   <mssgle:LineSegment
-                    End="99.0857172537823,49.2235301582045" />
+                    End="67.7857172537824,49.223530158205" />
                   <mssgle:CubicBezierSegment
-                    Point1="99.0857172537823,49.2235301582045"
-                    Point2="99.0857172537823,53.2235301582045"
-                    Point3="103.085717253782,53.2235301582045" />
+                    Point1="67.7857172537824,49.223530158205"
+                    Point2="67.7857172537824,53.223530158205"
+                    Point3="71.7857172537824,53.223530158205" />
                   <mssgle:LineSegment
-                    End="190.671434507565,53.2235301582045" />
+                    End="128.071434507565,53.223530158205" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -711,36 +652,32 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="186.4,41.6"
-          Id="Package\Update LastTimestamp"
-          TopLeft="477.142865268552,250.211768215008" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="472.285720523523,220.23529662294">
+          TopLeft="409.285720523523,220.63529662294">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="98.0571447450287,29.9764715920683"
+              EndConnector="13.857144745029,58.576471592068"
               Start="0,0"
-              End="98.0571447450287,22.4764715920683">
+              End="13.857144745029,51.076471592068">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.9882357960341" />
+                    End="0,25.288235796034" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.9882357960341"
-                    Point2="0,14.9882357960341"
-                    Point3="4,14.9882357960341" />
+                    Point1="0,25.288235796034"
+                    Point2="0,29.288235796034"
+                    Point3="4,29.288235796034" />
                   <mssgle:LineSegment
-                    End="94.0571447450287,14.9882357960341" />
+                    End="9.85714474502896,29.288235796034" />
                   <mssgle:CubicBezierSegment
-                    Point1="94.0571447450287,14.9882357960341"
-                    Point2="98.0571447450287,14.9882357960341"
-                    Point3="98.0571447450287,18.9882357960341" />
+                    Point1="9.85714474502896,29.288235796034"
+                    Point2="13.857144745029,29.288235796034"
+                    Point3="13.857144745029,33.288235796034" />
                   <mssgle:LineSegment
-                    End="98.0571447450287,22.4764715920683" />
+                    End="13.857144745029,51.076471592068" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -749,36 +686,32 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="151.2,41.6"
-          Id="Package\Post Processing"
-          TopLeft="272.000004632132,302.447062066682" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="477.142865268552,271.011768215008">
+          TopLeft="423.142865268552,321.211768215008">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-53.9428606364193,52.2352938516742"
+              EndConnector="-8.64286063641998,69.235293851674"
               Start="0,0"
-              End="-46.4428606364193,52.2352938516742">
+              End="-8.64286063641998,61.735293851674">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-22.9714303182096,0" />
+                    End="0,30.617646925837" />
                   <mssgle:CubicBezierSegment
-                    Point1="-22.9714303182096,0"
-                    Point2="-26.9714303182096,0"
-                    Point3="-26.9714303182096,4" />
+                    Point1="0,30.617646925837"
+                    Point2="0,34.617646925837"
+                    Point3="-4,34.617646925837" />
                   <mssgle:LineSegment
-                    End="-26.9714303182096,48.2352938516742" />
+                    End="-4.64286063641998,34.617646925837" />
                   <mssgle:CubicBezierSegment
-                    Point1="-26.9714303182096,48.2352938516742"
-                    Point2="-26.9714303182096,52.2352938516742"
-                    Point3="-30.9714303182096,52.2352938516742" />
+                    Point1="-4.64286063641998,34.617646925837"
+                    Point2="-8.64286063641998,34.617646925837"
+                    Point3="-8.64286063641998,38.617646925837" />
                   <mssgle:LineSegment
-                    End="-46.4428606364193,52.2352938516742" />
+                    End="-8.64286063641998,61.735293851674" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -796,39 +729,39 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="168,41.6"
+          Size="168,42"
           Id="Package\Data Flow Task\Solomon Employee"
           TopLeft="16.0000002724784,36.0941181532652" />
         <NodeLayout
-          Size="144,41.6"
-          Id="Package\Data Flow Task\DW Employee"
-          TopLeft="94.2857158913905,177.411767194015" />
+          Size="175,42"
+          Id="Package\Data Flow Task\DW Employee Stage"
+          TopLeft="142,160" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="100.000000272478,77.6941181532652">
+          TopLeft="100.000000272478,78.0941181532652">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="66.285715618912,99.7176490407502"
+              EndConnector="129.499999727522,81.9058818467348"
               Start="0,0"
-              End="66.285715618912,92.2176490407502">
+              End="129.499999727522,74.4058818467348">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,45.8588245203751" />
+                    End="0,36.9529409233674" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,45.8588245203751"
-                    Point2="0,49.8588245203751"
-                    Point3="4,49.8588245203751" />
+                    Point1="0,36.9529409233674"
+                    Point2="0,40.9529409233674"
+                    Point3="4,40.9529409233674" />
                   <mssgle:LineSegment
-                    End="62.285715618912,49.8588245203751" />
+                    End="125.499999727522,40.9529409233674" />
                   <mssgle:CubicBezierSegment
-                    Point1="62.285715618912,49.8588245203751"
-                    Point2="66.285715618912,49.8588245203751"
-                    Point3="66.285715618912,53.8588245203751" />
+                    Point1="125.499999727522,40.9529409233674"
+                    Point2="129.499999727522,40.9529409233674"
+                    Point3="129.499999727522,44.9529409233674" />
                   <mssgle:LineSegment
-                    End="66.285715618912,92.2176490407502" />
+                    End="129.499999727522,74.4058818467348" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -841,7 +774,15 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\DW Employee">
+    design-time-name="Package\Data Flow Task\Solomon Employee">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\DW Employee Stage">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -850,14 +791,6 @@
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Solomon Employee">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

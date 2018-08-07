@@ -8,7 +8,7 @@
       DTS:ConnectionString="Data Source=cdmsdwdev.database.windows.net;User ID=cdmsdwdevadmin;Initial Catalog=cdmsdwreportingdev;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
       <DTS:Password
         DTS:Name="Password"
-        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAV4rxtHirTUeU5gOwrwIdrgAAAAACAAAAAAADZgAAwAAAABAAAABBU8vP3Yz8OAEvZttPJPJDAAAAAASAAACgAAAAEAAAAISvRsqAntYc97UeY5sYONOAAAAArsGXa2TsF70zumofCspUv/PV6MlYaV5+sx5plkjFjrrScMg62rgmZmbbQ36IjZF0DgWg/3fTjRDnbvXMVf+7TTMX2xFHuECur7StimtJJ+KOrN6Zs7PZ/C22ol9SsNfN8b98byA78+ibHHjT5w2+1IJHhDtvlwtorTpyouL82cgUAAAAq2AC3VTzVholE3Qr4FkCTP6QgtQ=</DTS:Password>
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAV4rxtHirTUeU5gOwrwIdrgAAAAACAAAAAAADZgAAwAAAABAAAACi/rbxjDYdm9NE4K/wUyt4AAAAAASAAACgAAAAEAAAAAH/q+BqAVRclNJGH3WsWXiAAAAA8DUCpwoIuvggghg+E2t8YQpssQRmILQySWpmOehsyyHrxnbkOZ1ENqvI45WyI0a12+YGkQtAEQwBJZcmK6OTFtYa/6/DYTNAfpTY0eCNGrTwtcx6n4dtCH3w1D7ct1Is5BLT7OdPjsfs8uNYekBeawqWQHwyzy1hnRWfyG5CUNcUAAAAKS0y75xGbB0AC/mhszYGk1PesgA=</DTS:Password>
     </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>
